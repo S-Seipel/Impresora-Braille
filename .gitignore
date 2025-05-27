@@ -1,0 +1,51 @@
+# Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Entornos virtuales
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Archivos de logs y temporales
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Archivos de configuración locales
+*.db
+*.sqlite3
+*.DS_Store
+*.sublime-workspace
+*.vscode/
+*.idea/
+
+# Dist y compilación
+build/
+dist/
+*.egg-info/
+
+# Archivos de diseño de interfaz
+*.tcl
+*.tcl.tmp
+*.autosave
+
+# Archivos específicos del sistema
+Thumbs.db
+ehthumbs.db
+Icon?
+.DS_Store
+
+# Ejecutables
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Archivos del entorno Windows/MSYS
+*.stackdump
