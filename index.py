@@ -1,5 +1,5 @@
 import tkinter as tk
-from logica_braille import texto_a_braille, render_braille_ascii
+from logica_braille import texto_a_braille
 
 color_fondo = "#96b397"
 color_input = "#c8cfae"
@@ -14,7 +14,7 @@ ventana.configure(bg=color_fondo)
 
 label_titulo = tk.Label(
     ventana,
-    text="Escribí lo que quieras traducir a braille:",
+    text="Escribí lo que quieras traducir a Braille:",
     font=fuente_titulo,
     bg=color_fondo,
     fg=color_texto
@@ -34,25 +34,35 @@ entry_texto = tk.Entry(
 )
 entry_texto.pack(pady=(0, 20), ipady=6)
 
-salida_braille = tk.Text(
+salida_comandos = tk.Text(
     ventana,
-    height=15,
-    font=("Courier New", 16),
-    bg=color_input,
+    height=30,
+    font=("Courier New", 12),
+    bg="#dce2c8",
     fg=color_texto,
     relief=tk.FLAT,
     highlightthickness=1,
     highlightbackground="#7b8c6f"
 )
-salida_braille.pack(fill="both", expand=True, padx=20, pady=10)
-
+salida_comandos.pack(fill="both", expand=True, padx=20, pady=10)
 
 def traducir():
     texto = entry_texto.get()
     celdas = texto_a_braille(texto)
-    dibujo = render_braille_ascii(celdas)
-    salida_braille.delete(1.0, tk.END)
-    salida_braille.insert(tk.END, dibujo)
+
+    comandos = []
+    letras_por_fila = 15
+
+    for i, celda in enumerate(celdas):
+        binario = ''.join(str(b) for b in celda)
+        comandos.append(f'BRAILLE:{binario}')
+        comandos.append('MOVE_X')
+        if (i + 1) % letras_por_fila == 0:
+            comandos.append('NEXTLINE')
+
+    comandos.append('END')
+    salida_comandos.delete(1.0, tk.END)
+    salida_comandos.insert(tk.END, '\n'.join(comandos))
 
 boton_traducir = tk.Button(
     ventana,
